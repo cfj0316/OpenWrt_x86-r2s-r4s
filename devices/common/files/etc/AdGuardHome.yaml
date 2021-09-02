@@ -169,7 +169,7 @@ user_rules:
 - '@@||pss.alicdn.com^$important'
 - '@@||broccoli.uc.cn^$important'
 - '@@||applog.uc.cn^$important'
-- ""
+- '@@||u3.ucweb.com^'
 dhcp:
   enabled: false
   interface_name: ""
