@@ -1,4 +1,4 @@
-# Actions OpenWrt Snapshot
+# OpenWrt with NGINX for x86_64 NanoPi-R2S R4S Raspberry-Pi-4B
 [1]: https://img.shields.io/badge/license-GPLV2-brightgreen.svg
 [2]: /LICENSE
 [3]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg
@@ -41,17 +41,29 @@
 + 无需专业知识,无需linux服务器,人人皆可通过云编译定制编译自己的专属固件.
 
 
-| 设备           | 固件下载                                             | 说明                                 |
-|----------------|-----------------------------------------------------|--------------------------------------|
-| X86_64         | [📥](https://op.supes.top/firmware/x86_64/)         | 请分配不少于1G的存储空间           |   |
-| NanoPi-R2S    | [📥](https://op.supes.top/firmware/nanopi-r2s/)     | 默认交换了网口,靠近电源口的是WAN口   |         |
-| NanoPi-R4S    | [📥](https://op.supes.top/firmware/nanopi-r4s/)     |             |
-| Raspberry Pi 4B (树莓派4B)| [📥](https://op.supes.top/firmware/Rpi-4B/)         |   
+| 设备           | 固件下载                                             | 🐳 Docker |说明                                 |
+|----------------|-----------------------------------------------------|--|--------------------------------------|
+| X86_64         | [📥](https://op.supes.top/firmware/x86_64/)  | [kiddin9/openwrt-nginx:x86_64](https://hub.docker.com/r/kiddin9/openwrt-nginx)      | 请分配不少于1G的存储空间           |
+| NanoPi-R2S    | [📥](https://op.supes.top/firmware/nanopi-r2s/) | [kiddin9/openwrt-nginx:nanopi-r2s](https://hub.docker.com/r/kiddin9/openwrt-nginx)   | 默认交换了网口,靠近电源口的是WAN口   |
+| NanoPi-R4S    | [📥](https://op.supes.top/firmware/nanopi-r4s/) | [kiddin9/openwrt-nginx:nanopi-r4s](https://hub.docker.com/r/kiddin9/openwrt-nginx)   |
+| Raspberry Pi 4B (树莓派4B)| [📥](https://op.supes.top/firmware/Rpi-4B/)  | [kiddin9/openwrt-nginx:rpi-4b](https://hub.docker.com/r/kiddin9/openwrt-nginx)   |
 
 
 #### 后台入口 op/ 或 10.0.0.1 &nbsp;(若后台无法打开,请插拔交换wan,lan网线顺序.)
 
 #### 默认密码 root
+
+#### 固件内置的快捷访问入口(部分服务需要先自行在软件包中安装并启用):
+
++ op/ 可打开 OpenWRT后台 即 lan ip
++ ql/ 可打开 青龙后台 即 lan ip:5700
++ adg/ 可打开 AdGuardHome管理后台 即 lan ip:3000
++ pve/ 可打开 Proxmox VE虚拟机管理 默认为 10.0.0.10:8006
++ by/ 可打开 Bypass插件页面 即 ip/luci/admin/services/bypass
++ pk/ 可打开 Packages插件管理页面 即 ip/luci/admin/system/opkg
++ ug/ 可打开 固件在线更新页面 即 ip/luci/admin/services/gpsysupgrade
++ dl/ 可打开 固件和插件ipk仓库
+##### 可自行在 /etc/nginx/conf.d/shortcuts.conf 中调整和添加更多快捷访问
 
 第一次使用请采用全新安装,避免出现升级失败以及其他一些可能的Bug.
 
@@ -92,13 +104,13 @@ diy云编译教程: [Read the details in my blog (in Chinese) | 中文教程](ht
  首次编译:
 ```
 screen -S openwrt
-wget -O compile.sh https://raw.githubusercontent.com/kiddin9/OpenWrt_x86-r2s-r4s/master/onekey/compile.sh && bash compile.sh
+bash -c "$(curl -fsSL https://git.io/opbuild.sh)"
 ```
 
  二次编译:
 ```
 screen -S openwrt
-wget -O recompile.sh https://raw.githubusercontent.com/kiddin9/OpenWrt_x86-r2s-r4s/master/onekey/recompile.sh && bash recompile.sh
+bash -c "$(curl -fsSL https://git.io/rebuild.sh)"
 ```
 
 Build OpenWrt using GitHub Actions

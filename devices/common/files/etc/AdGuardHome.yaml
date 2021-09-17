@@ -3,68 +3,55 @@ bind_port: 3000
 beta_bind_port: 0
 users:
 - name: root
-  password: $2a$10$IPWhpcIocdYfZcSX6i6axu4av1CdJ1FLX.v1TgQ/zjYYwaauz/awu
+  password: $2y$10$dwn0hTYoECQMZETBErGlzOId2VANOVsPHsuH13TM/8KnysM5Dh/ve
 auth_attempts: 5
 block_auth_min: 15
 http_proxy: ""
-language: ""
+language: zh-cn
+rlimit_nofile: 0
 debug_pprof: false
 web_session_ttl: 720
 dns:
   bind_hosts:
   - 0.0.0.0
   port: 5553
-  statistics_interval: 30
+  statistics_interval: 90
   querylog_enabled: true
   querylog_file_enabled: true
-  querylog_interval: 2160h
+  querylog_interval: 7
   querylog_size_memory: 1000
   anonymize_client_ip: false
   protection_enabled: true
-  blocking_mode: default
+  blocking_mode: nxdomain
   blocking_ipv4: ""
   blocking_ipv6: ""
-  blocked_response_ttl: 10
+  blocked_response_ttl: 60
   parental_block_host: family-block.dns.adguard.com
   safebrowsing_block_host: standard-block.dns.adguard.com
   ratelimit: 0
   ratelimit_whitelist: []
-  refuse_any: true
+  refuse_any: false
   upstream_dns:
-  - tls://dns.pub
-  - https://dns.pub/dns-query
-  - tls://dns.alidns.com
-  - https://dns.alidns.com/dns-query
-  - 2400:3200::1
-  - 240c::6666
-  - 8.8.8.8
+  - 127.0.0.1:5337
   upstream_dns_file: ""
   bootstrap_dns:
-  - 218.106.127.114
   - 119.29.29.29
-  - 119.28.28.28
   - 223.5.5.5
-  - 223.6.6.6
-  all_servers: true
+  all_servers: false
   fastest_addr: false
-  fastest_timeout: 1s
   allowed_clients: []
   disallowed_clients: []
   blocked_hosts:
   - version.bind
   - id.server
   - hostname.bind
-  trusted_proxies:
-  - 127.0.0.0/8
-  - ::1/128
   cache_size: 4194304
   cache_ttl_min: 0
   cache_ttl_max: 0
-  cache_optimistic: false
   bogus_nxdomain: []
   aaaa_disabled: false
-  enable_dnssec: true
-  edns_client_subnet: true
+  enable_dnssec: false
+  edns_client_subnet: false
   max_goroutines: 300
   ipset: []
   filtering_enabled: true
@@ -78,10 +65,8 @@ dns:
   cache_time: 30
   rewrites: []
   blocked_services: []
-  upstream_timeout: 10s
   local_domain_name: lan
-  resolve_clients: false
-  use_private_ptr_resolvers: false
+  resolve_clients: true
   local_ptr_upstreams: []
 tls:
   enabled: false
@@ -102,74 +87,14 @@ filters:
 - enabled: true
   url: https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt
   name: AdGuard DNS filter
-  id: 1
-- enabled: true
-  url: https://adaway.org/hosts.txt
-  name: AdAway Default Blocklist
-  id: 2
-- enabled: false
-  url: https://gitee.com/xinggsf/Adblock-Rule/raw/master/mv.txt
-  name: 乘风 视频
-  id: 1618392039
-- enabled: false
-  url: https://gitee.com/xinggsf/Adblock-Rule/raw/master/rule.txt
-  name: 乘风 广告
-  id: 1618392040
-- enabled: false
-  url: https://gitee.com/halflife/list/raw/master/ad.txt
-  name: 乘风视频广告、EasylistChina、EasylistLite、CJX'sAnnoyance
-  id: 1618392041
-- enabled: false
-  url: https://www.i-dont-care-about-cookies.eu/abp/
-  name: I don't care about cookies
-  id: 1618392042
-- enabled: false
-  url: https://easylist-downloads.adblockplus.org/easyprivacy.txt
-  name: EasyPrivacy
-  id: 1618392043
-- enabled: false
-  url: https://gitee.com/cjx82630/cjxlist/raw/master/cjx-ublock.txt
-  name: CJX's uBlock list
-  id: 1618392044
-- enabled: false
-  url: https://raw.githubusercontent.com/jdlingyu/ad-wars/master/hosts
-  name: 大圣净化 - 针对国内视频网站
-  id: 1624855683
-- enabled: false
-  url: http://sub.adtchrome.com/adt-chinalist-easylist.txt
-  name: 广告终结者使用的拦截规则，基于ChinaList+EasyList修正维护
-  id: 1624855684
-- enabled: false
-  url: https://raw.githubusercontent.com/banbendalao/ADgk/master/kill-baidu-ad.txt
-  name: 百度搜索结果内屏蔽百家号
-  id: 1624855685
-- enabled: false
-  url: https://raw.githubusercontent.com/adbyby/xwhyc-rules/master/lazy.txt
-  name: Adbyby
-  id: 1624855686
-- enabled: false
-  url: https://raw.githubusercontent.com/adbyby/xwhyc-rules/master/video.txt
-  name: Adbyby
-  id: 1624855687
+  id: 1628750870
 - enabled: true
   url: https://anti-ad.net/easylist.txt
-  name: Anti-AD
-  id: 1624855688
-- enabled: false
-  url: https://easylist-downloads.adblockplus.org/easylist.txt
-  name: EasyList
-  id: 1624855689
-- enabled: false
-  url: https://easylist-downloads.adblockplus.org/easylistchina.txt
-  name: EasyList China
-  id: 1624855690
+  name: 'CHN: anti-AD'
+  id: 1628750871
 whitelist_filters: []
 user_rules:
-- '||wwads.cn^'
-- '@@||pss.alicdn.com^$important'
-- '@@||broccoli.uc.cn^$important'
-- '@@||applog.uc.cn^$important'
-- '@@||u3.ucweb.com^'
+- '@@||edge.activity.windows.com^'
 dhcp:
   enabled: false
   interface_name: ""
@@ -194,8 +119,4 @@ log_max_size: 100
 log_max_age: 3
 log_file: ""
 verbose: false
-os:
-  group: ""
-  user: ""
-  rlimit_nofile: 0
-schema_version: 12
+schema_version: 10
